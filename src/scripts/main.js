@@ -84,3 +84,43 @@ window.addEventListener('keydown', (e) => {
   }
   render();
 });
+
+let touchStartX = 0;
+let touchStartY = 0;
+
+const gameField = document.querySelector('.game-field');
+
+gameField.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].clientX;
+  touchStartY = e.changedTouches[0].clientY;
+});
+
+gameField.addEventListener('touchend', (e) => {
+  if (game.getStatus() !== 'playing') {
+    return;
+  }
+
+  const diffX = e.changedTouches[0].clientX - touchStartX;
+  const diffY = e.changedTouches[0].clientY - touchStartY;
+  const threshold = 30;
+
+  if (Math.abs(diffX) < threshold && Math.abs(diffY) < threshold) {
+    return;
+  }
+
+  if (Math.abs(diffX) > Math.abs(diffY)) {
+    if (diffX > 0) {
+      game.moveRight();
+    } else {
+      game.moveLeft();
+    }
+  } else {
+    if (diffY > 0) {
+      game.moveDown();
+    } else {
+      game.moveUp();
+    }
+  }
+
+  render();
+});
