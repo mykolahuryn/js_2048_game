@@ -142,6 +142,16 @@ class Game {
     return this.state;
   }
 
+  /**
+   * Returns the current game status.
+   *
+   * @returns {string} One of: 'idle', 'playing', 'win', 'lose'
+   *
+   * `idle` - the game has not started yet (the initial state);
+   * `playing` - the game is in progress;
+   * `win` - the game is won;
+   * `lose` - the game is lost
+   */
   getStatus() {
     return this.status;
   }
